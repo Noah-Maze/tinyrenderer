@@ -42,9 +42,16 @@ with open(sys.argv[1]) as ob:
             # Break off vertex indexes (the rest relates to vt, vn)
             vert_inds = [a.partition('/')[0] for a in line[2:].split(' ')]
             # Add pairs to set
-            pairs = set([(int(vert_inds[i])-1, int(vert_inds[(i+1)%len(vert_inds)])-1) for i in range(0,len(vert_inds))])
+            pairs=[]
+            for i in range(0,len(vert_inds)):
+                start = int(vert_inds[i])-1
+                stop = int(vert_inds[(i+1)%len(vert_inds)])-1
+                if start > stop:
+                    pairs.append((start, stop))
+                else:
+                    pairs.append((stop,start))
             # Update linelist with new pairs
-            lines.update(pairs)
+            lines.update(set(pairs))
 
 # Scale vertexes because obj scaling isn't standardized at all, wtf
 fv = max(vertexes, key=lambda v: v[0]**2+v[1]**2)
