@@ -27,7 +27,7 @@ defmodule TinRend.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:bump, "~> 0.1.0"}]
-
+    [{:bump, "~> 0.1.0"},
+    {:exprof, "~> 0.2.0"}]
   end
 end
